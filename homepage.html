@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY Mood Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2B4C7E;
+            --primary-light: #567EBB;
+            --secondary: #f8fafc;
+            --accent: #BFA181;
+            --accent-light: #b6a355;
+            --white: #FFFFFF;
+            --text: #1E293B;
+            --gradient: linear-gradient(135deg, #2B4C7E 0%,  #567EBB 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .nav-header {
+            background: var(--primary);
+            padding: 1.2rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .hero-section {
+            background: var(--gradient);
+            padding: 8rem 2rem 6rem;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .quiz-container {
+            max-width: 800px;
+            margin: -3rem auto 4rem;
+            padding: 2.5rem;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .question {
+            background: var(--secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--accent);
+        }
+
+        .question h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        button {
+            padding: 1rem 1.5rem;
+            border: 1px solid var(--primary-light);
+            border-radius: 8px;
+            background: var(--white);
+            color: var(--primary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        button.selected {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        #results-container {
+            text-align: center;
+            display: none;
+        }
+
+        #mood-result {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 2rem 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .loading-animation {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--secondary);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .options {
+                grid-template-columns: 1fr;
+            }
+            .quiz-container {
+                margin: -2rem 1rem 2rem;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="nav-header">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-heart"></i>
+                DIY Wellness
+            </a>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>How are you feeling today?</h1>
+            <p>Take our quick quiz to find the perfect DIY project for your mood</p>
+        </div>
+    </section>
+
+    <div class="quiz-container">
+        <div id="questions-container">
+            <div class="question">
+                <p>1. How was your energy level today?</p>
+                <div class="options">
+                    <button onclick="recordAnswer('energy', 'high')">High Energy</button>
+                    <button onclick="recordAnswer('energy', 'balanced')">Balanced</button>
+                    <button onclick="recordAnswer('energy', 'low')">Low Energy</button>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>2. What kind of activities did you enjoy today?</p>
+                <div class="options">
+                    <button onclick="recordAnswer('activity', 'creative')">Creative</button>
+                    <button onclick="recordAnswer('activity', 'social')">Social</button>
+                    <button onclick="recordAnswer('activity', 'quiet')">Quiet</button>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>3. How did you feel throughout the day?</p>
+                <div class="options">
+                    <button onclick="recordAnswer('feeling', 'excited')">Excited</button>
+                    <button onclick="recordAnswer('feeling', 'content')">Content</button>
+                    <button onclick="recordAnswer('feeling', 'tired')">Tired</button>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>4. What was the highlight of your day?</p>
+                <div class="options">
+                    <button onclick="recordAnswer('highlight', 'achievement')">Achievement</button>
+                    <button onclick="recordAnswer('highlight', 'social')">Social Connection</button>
+                    <button onclick="recordAnswer('highlight', 'personal')">Personal Time</button>
+                </div>
+            </div>
+
+            <button onclick="calculateMood()" class="submit-button">
+                Discover Your Perfect DIY Project
+            </button>
+        </div>
+
+        <div id="results-container">
+            <h2>We've discovered your mood!</h2>
+            <span id="mood-result"></span>
+            <p class="loading-animation"></p>
+        </div>
+    </div>
+
+    <script>
+        let answers = {};
+        const diyProjects = {
+            "Happy": [
+                {
+                    title: "Colorful Friendship Bracelets",
+                    description: "Create vibrant friendship bracelets using embroidery floss and basic knot patterns."
+                },
+                {
+                    title: "Positive Affirmation Board",
+                    description: "Design a board with your favorite inspiring quotes and photos."
+                }
+            ],
+            "Energetic": [
+                {
+                    title: "Paint Splatter Art",
+                    description: "Create dynamic artwork using paint splatter techniques on canvas."
+                },
+                {
+                    title: "Upcycled Plant Holders",
+                    description: "Transform old containers into colorful plant holders with paint and decorations."
+                }
+            ],
+            "Relaxed": [
+                {
+                    title: "Lavender Sachets",
+                    description: "Sew simple sachets and fill them with dried lavender for peaceful sleep."
+                },
+                {
+                    title: "Zen Garden",
+                    description: "Create a mini zen garden with sand, rocks, and miniature rake."
+                }
+            ],
+            "Calm": [
+                {
+                    title: "Origami Birds",
+                    description: "Learn to fold paper cranes and other peaceful origami designs."
+                },
+                {
+                    title: "Pressed Flower Art",
+                    description: "Collect and press flowers to create beautiful botanical artwork."
+                }
+            ]
+        };
+
+        function recordAnswer(category, value) {
+            answers[category] = value;
+            
+            
+            const buttons = document.querySelectorAll(`button[onclick*="recordAnswer('${category}"]`);
+            buttons.forEach(button => {
+                button.classList.remove('selected');
+                if (button.getAttribute('onclick').includes(value)) {
+                    button.classList.add('selected');
+                }
+            });
+        }
+
+        function calculateMood() {
+            
+            const requiredCategories = ['energy', 'activity', 'feeling', 'highlight'];
+            const unansweredCategories = requiredCategories.filter(category => !answers[category]);
+            
+            if (unansweredCategories.length > 0) {
+                alert('Please answer all questions before continuing!');
+                return;
+            }
+
+            let mood = "Calm"; 
+
+            if (answers.energy === 'high' && answers.activity === 'creative') {
+                mood = "Energetic";
+            } else if (answers.feeling === 'excited' || answers.highlight === 'achievement') {
+                mood = "Happy";
+            } else if (answers.energy === 'low' && answers.feeling === 'tired') {
+                mood = "Relaxed";
+            } else if (answers.activity === 'quiet' && answers.highlight === 'personal') {
+                mood = "Calm";
+            }
+
+            document.getElementById('questions-container').style.display = 'none';
+            const resultsContainer = document.getElementById('results-container');
+            resultsContainer.style.display = 'block';
+            resultsContainer.innerHTML = `
+                <h2>We've discovered your mood!</h2>
+                <span id="mood-result">${mood}</span>
+                <p class="loading-animation"></p>
+            `;
+
+            
+            setTimeout(() => {
+                window.location.href = `diy_${mood.toLowerCase()}.html`;
+            }, 2500);
+        }
+
+        function resetQuiz() {
+            answers = {};
+        
+            document.querySelectorAll('button').forEach(button => {
+                button.classList.remove('selected');
+            });
+            document.getElementById('questions-container').style.display = 'block';
+            document.getElementById('results-container').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

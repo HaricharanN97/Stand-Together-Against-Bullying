@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY Happy Projects</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+     
+        :root {
+            --primary: #2B4C7E;      
+            --primary-light: #567EBB; 
+            --accent: #BFA181;       
+            --text: #2C3E50;
+            --white: #FFFFFF;
+            --bg: #F7F9FC;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(26, 54, 93, 0.03) 0%,
+                rgba(43, 76, 126, 0.03) 100%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .nav-header {
+            background: var(--primary);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* More natural hero section */
+        .hero-section {
+            background: var(--primary);
+            padding: 100px 20px 60px;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            text-align: center;
+            animation: fadeIn 1s ease-out 0.3s forwards;
+            opacity: 0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: -3rem auto 0;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .container {
+            max-width: none;
+            margin: 0;
+            padding: 0;
+            background: none;
+            box-shadow: none;
+        }
+
+        /* Cleaner project sections */
+        .project-section {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 0 20px;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        .project-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin: 2rem auto;
+            text-align: center;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .project-description {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text);
+            max-width: 800px;
+            margin: 1rem auto;
+        }
+
+        /* Simpler materials and steps sections */
+        .materials, .steps {
+            background: var(--white);
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .materials h3, .steps h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        /* More natural list styling */
+        .materials ul, .steps ol {
+            padding-left: 20px;
+        }
+
+        .materials li, .steps li {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        /* Simpler button style */
+        .share-button {
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            transition: all 0.3s ease;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: none;
+            border-radius: 0;
+            box-shadow: none;
+            border: none;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 2.5rem;
+        }
+
+        .meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, 
+                rgba(248, 250, 252, 0.95) 0%,
+                rgba(240, 247, 255, 0.95) 100%);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid rgba(196, 162, 27, 0.2);
+            box-shadow: 0 2px 8px -2px rgba(26, 54, 93, 0.05);
+            color: var(--primary);
+        }
+
+        .navigation {
+            border-top: 2px solid var(--accent);
+            margin-top: 3rem;
+            padding-top: 2rem;
+        }
+
+        .nav-link {
+            color: var(--primary);
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .header-section {
+            background: var(--primary);
+            padding: 4rem 0 8rem;
+            margin-bottom: -6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="rgba(255,255,255,0.05)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .content-grid {
+            display: block;
+        }
+
+        .project-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(196, 176, 91, 0.1);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .project-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .project-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text);
+            margin-bottom: 2rem;
+        }
+
+        .video-tutorial {
+            background: var(--accent);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .tips-section {
+            background: var(--accent);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .difficulty, .time-estimate {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-right: 1rem;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .materials-card {
+            background: var(--accent);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .video-section {
+            margin: 3rem 0;
+            background: var(--accent);
+            padding: 2rem;
+            border-radius: 20px;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--primary);
+        }
+
+        .chat-container {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            background: white;
+            overflow: hidden;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+            transform-origin: bottom right;
+        }
+
+        .chat-box {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            background: var(--accent);
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 12px;
+            margin: 5px 0;
+            max-width: 80%;
+            font-size: 0.95rem;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background: var(--primary);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .bot-message {
+            align-self: flex-start;
+            background: var(--white);
+            color: var(--text);
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .input-container {
+            display: flex;
+            padding: 15px;
+            background: var(--white);
+            border-top: 1px solid var(--accent);
+        }
+
+        .input-container input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            outline: none;
+            font-size: 0.95rem;
+            margin-right: 8px;
+        }
+
+        .input-container button {
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .input-container button:hover {
+            background: var(--primary-light);
+        }
+
+        .error {
+            color: #dc2626;
+            text-align: center;
+            padding: 5px;
+            font-size: 0.9rem;
+        }
+
+        .chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            animation: pulse 2s infinite;
+        }
+
+        .chat-toggle:hover {
+            transform: scale(1.1);
+            background: var(--primary-light);
+        }
+
+        .chat-icon {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: invert(1);  /* Makes the icon white */
+        }
+
+        .video-tutorial {
+            background: var(--accent);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            border-left: 4px solid var(--primary);
+        }
+
+        .video-tutorial h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .materials {
+            background: #f5f5f5;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+        }
+
+        .video-container {
+            margin: 30px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+
+        /* Add these animation keyframes */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Apply animations to elements */
+        .hero-content h1 {
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero-content p {
+            animation: fadeIn 1s ease-out 0.3s forwards;
+            opacity: 0;
+        }
+
+        .project-section {
+            animation: slideIn 0.8s ease-out;
+        }
+
+        .chat-toggle {
+            animation: pulse 2s infinite;
+        }
+
+        .share-button:hover {
+            animation: bounce 0.8s ease-in-out;
+        }
+
+        .materials, .steps {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* Add hover animations */
+        .project-title:hover {
+            transform: scale(1.02);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            animation: bounce 0.5s ease;
+        }
+
+        .logo:hover i {
+            animation: bounce 0.8s ease infinite;
+        }
+
+        /* Smooth transitions */
+        .materials, .steps, .project-title, .share-button {
+            transition: all 0.3s ease;
+        }
+
+        /* Chat container animation */
+        .chat-container {
+            animation: fadeIn 0.5s ease-out;
+            transform-origin: bottom right;
+        }
+
+        /* Message animations */
+        .message {
+            animation: fadeIn 0.3s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <header class="nav-header">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-heart"></i>
+                DIY Wellness
+            </a>
+            <nav class="nav-links">
+                <a href="Homepage.html">Projects</a>
+                <a href="community.html">Community</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Happy DIY Projects</h1>
+            <p>Create joyful crafts that lift your spirits and brighten your day</p>
+        </div>
+    </section>
+
+    <div class="main-wrapper">
+        <main class="container">
+            <div class="project-section">
+                <h2 class="project-title">🧶 Colorful Friendship Bracelets</h2>
+                <p class="project-description">Create vibrant friendship bracelets using embroidery floss and basic knot patterns. Perfect for sharing with friends and expressing creativity through color and design.</p>
+                
+                <div class="video-container">
+                    <iframe width="100%" height="450" src="https://www.youtube.com/embed/UVXrH_Ofwww?si=kgI-VQzi5qzsqLiz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+
+                <div class="materials">
+                    <h3>Materials Needed</h3>
+                    <ul>
+                        <li>6-8 strands of embroidery floss in different colors</li>
+                        <li>Sharp scissors</li>
+                        <li>Masking tape or safety pin</li>
+                        <li>Clipboard or firm surface</li>
+                        <li>Measuring tape or ruler</li>
+                        <li>Optional: Beads for decoration</li>
+                    </ul>
+                </div>
+
+                <div class="steps">
+                    <h3>Step by Step Guide</h3>
+                    <ol>
+                        <li>
+                            <strong>Prepare Your Threads:</strong>
+                            <ul>
+                                <li>Cut 6-8 strands of embroidery floss, each 24 inches long</li>
+                                <li>Align all threads evenly</li>
+                                <li>Tie a knot at one end, leaving about 2 inches of slack</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Set Up Your Workspace:</strong>
+                            <ul>
+                                <li>Secure the knotted end to your clipboard with tape</li>
+                                <li>Separate threads into pairs</li>
+                                <li>Arrange colors in your desired pattern</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Basic Forward Knot Pattern:</strong>
+                            <ul>
+                                <li>Take the leftmost thread</li>
+                                <li>Create a '4' shape over the second thread</li>
+                                <li>Loop under and through the hole</li>
+                                <li>Pull tight to create a knot</li>
+                                <li>Repeat twice with the same threads</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Continue the Pattern:</strong>
+                            <ul>
+                                <li>Move to the next pair of threads</li>
+                                <li>Repeat the forward knot pattern</li>
+                                <li>Continue across all threads</li>
+                                <li>This creates one row of your pattern</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Add Length:</strong>
+                            <ul>
+                                <li>Continue creating rows of knots</li>
+                                <li>Keep tension consistent for uniform appearance</li>
+                                <li>Measure periodically for desired length</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Finishing Touches:</strong>
+                            <ul>
+                                <li>Once desired length is reached, tie a tight knot</li>
+                                <li>Optional: Add beads before final knot</li>
+                                <li>Trim excess thread, leaving 1/2 inch tail</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <button class="share-button" onclick="shareProject(this)" 
+                    data-project-name="Colorful Friendship Bracelets" 
+                    data-mood="happy"
+                    data-description="A beautiful bracelet made with love!"
+                    data-difficulty="Beginner Friendly"
+                    data-time="30-45 minutes per bracelet">
+                    Share Your Version
+                </button>
+            </div>
+
+            <div class="project-section">
+                <h2 class="project-title">✨ Positive Affirmation Board</h2>
+                <p class="project-description">Create a personalized vision board that reflects your goals, dreams, and daily affirmations. This powerful tool combines creativity with positive psychology to help maintain an optimistic mindset.</p>
+                
+                <div class="video-container">
+                    <iframe width="100%" height="450" src="https://www.youtube.com/embed/TvymXy94t2g?si=Bga3VK6pjaYecMOZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+
+                <div class="materials">
+                    <h3>Materials Needed</h3>
+                    <ul>
+                        <li>Large cork board or sturdy canvas (16x20" recommended)</li>
+                        <li>Decorative papers in your favorite colors</li>
+                        <li>Art supplies (markers, paint pens, watercolors)</li>
+                        <li>Inspirational magazines or printed quotes</li>
+                        <li>Personal photos that bring joy</li>
+                        <li>Decorative washi tape or ribbons</li>
+                        <li>Strong adhesive or push pins</li>
+                        <li>Scissors and ruler</li>
+                        <li>Optional: fairy lights, crystals, or small trinkets</li>
+                    </ul>
+                </div>
+
+                <div class="steps">
+                    <h3>Step by Step Guide</h3>
+                    <ol>
+                        <li>
+                            <strong>Planning Your Board:</strong>
+                            <ul>
+                                <li>Choose a theme or color scheme</li>
+                                <li>Write down your goals and affirmations</li>
+                                <li>Collect images that represent your aspirations</li>
+                                <li>Select meaningful quotes and words</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Preparing Your Space:</strong>
+                            <ul>
+                                <li>Clean and prepare your board surface</li>
+                                <li>Sort materials by category</li>
+                                <li>Create a rough layout on a table first</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Creating Sections:</strong>
+                            <ul>
+                                <li>Divide board into life areas (career, health, relationships)</li>
+                                <li>Use different colors for each section</li>
+                                <li>Leave space for future additions</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Adding Personal Touches:</strong>
+                            <ul>
+                                <li>Write personal mantras in decorative lettering</li>
+                                <li>Add photos of happy memories</li>
+                                <li>Include small symbolic items</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Final Assembly:</strong>
+                            <ul>
+                                <li>Secure everything permanently</li>
+                                <li>Add decorative borders</li>
+                                <li>Consider adding lighting elements</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <button class="share-button" onclick="shareProject(this)" 
+                    data-project-name="Positive Affirmation Board" 
+                    data-mood="happy"
+                    data-description="A motivational board to boost your mood!"
+                    data-difficulty="Beginner Friendly"
+                    data-time="1-2 hours">
+                    Share Your Version
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <button class="chat-toggle" onclick="toggleChat()">
+        <i class="fas fa-comments"></i>
+    </button>
+
+    <div class="chat-container" id="chatbot">
+        <div class="chat-box" id="chat"></div>
+        <div id="error" class="error"></div>
+        <div class="input-container">
+            <input type="text" id="userInput" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function shareProject(button) {
+            const projectData = {
+                name: button.getAttribute('data-project-name'),
+                mood: button.getAttribute('data-mood'),
+                description: button.getAttribute('data-description'),
+                difficulty: button.getAttribute('data-difficulty'),
+                time: button.getAttribute('data-time')
+            };
+
+            let projects = JSON.parse(localStorage.getItem('sharedProjects')) || [];
+            projects.push(projectData);
+            localStorage.setItem('sharedProjects', JSON.stringify(projects));
+
+            window.location.href = 'community.html#upload-section';
+        }
+
+        
+        const apiKey = "sk-fb74f0fe133d43758645f691ea138d38";
+        const apiUrl = "https://api.deepseek.com/v1/chat/completions";
+
+        async function sendMessage() {
+            const userInput = document.getElementById("userInput").value;
+            if (!userInput.trim()) return;
+
+            displayMessage(userInput, "user-message");
+
+            try {
+                const requestBody = {
+                    model: "deepseek-chat",
+                    messages: [{ role: "user", content: userInput }]
+                };
+
+                const response = await fetch(apiUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    const botReply = data.choices[0]?.message?.content || "No response";
+                    displayMessage(botReply, "bot-message");
+                } else {
+                    throw new Error(data.error?.message || "Failed to get response");
+                }
+            } catch (error) {
+                displayMessage(`Error: ${error.message}`, "error-message");
+            }
+
+            document.getElementById("userInput").value = "";
+        }
+
+        function displayMessage(text, className) {
+            const chatBox = document.getElementById("chat");
+            const messageDiv = document.createElement("div");
+            messageDiv.className = `message ${className}`;
+            messageDiv.innerText = text;
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function toggleChat() {
+            const chatbot = document.getElementById("chatbot");
+            chatbot.style.display = chatbot.style.display === "none" ? "flex" : "none";
+        }
+
+        // Add event listener for Enter key
+        document.getElementById("userInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html> 
